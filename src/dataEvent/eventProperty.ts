@@ -12,9 +12,7 @@ export type EventProperty = {
         isBookmarked: boolean
       },
       인사이트_카드_View: {
-        insightId: string,
-        category: string,
-        isBookmarked: boolean
+        insightId: string
       },
       카테고리_Click: {
         name: string
