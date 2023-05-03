@@ -10,19 +10,24 @@ type Path<T, U extends any[] = []> = U['length'] extends 3
   : never;
 
 export type EventPath = Path<EventProperty>;
+type EventAction = 'click' | 'view';
 
-type EventPropertyForPath<Path extends EventPath> = Path extends [infer K1, infer K2, infer K3]
-  ? K1 extends keyof EventProperty
-    ? K2 extends keyof EventProperty[K1]
-      ? K3 extends keyof EventProperty[K1][K2]
-        ? EventProperty[K1][K2][K3]
+type EventPropertyForPath<Path extends EventPath, Action extends EventAction> = Path extends infer P
+  ? P extends [infer Feature, infer Location, infer Target]
+    ? Feature extends keyof EventProperty
+      ? Location extends keyof EventProperty[Feature]
+        ? Target extends keyof EventProperty[Feature][Location]
+          ? Action extends keyof EventProperty[Feature][Location][Target]
+            ? EventProperty[Feature][Location][Target][Action]
+            : never
+          : never
         : never
       : never
     : never
   : never;
 
-export type EventLoggingComponentProps<Path extends EventPath> = {
+export type EventLoggingComponentProps<Path extends EventPath, Action extends EventAction> = {
   children: React.ReactElement;
   path: Path;
-  property: EventPropertyForPath<Path>;
+  property: EventPropertyForPath<Path, Action>;
 };

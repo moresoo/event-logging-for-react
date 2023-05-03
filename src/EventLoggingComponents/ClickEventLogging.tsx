@@ -6,7 +6,7 @@ const ClickEventLogging = <Path extends EventPath>({
   children,
   path,
   property,
-}: EventLoggingComponentProps<Path>) => {
+}: EventLoggingComponentProps<Path, 'click'>) => {
   const [feature, location, target] = path;
   const eventName = EVENT_NAME[feature][location][target]['click'];
   const eventPath = [feature, location, target].join(' > ');
@@ -17,7 +17,7 @@ const ClickEventLogging = <Path extends EventPath>({
       /**
        * event logging!
        */
-      console.log('---------------')
+      console.log('---------------');
       console.log('Click Event Logging!');
       console.log('name', eventName);
       console.log('path', eventPath);
