@@ -1,5 +1,5 @@
 import { EventLoggingComponentProps, EventPath } from './types';
-import { EVENT_VALUE } from '@/dataEvent';
+import { EVENT_NAME } from '@/dataEvent';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 const ViewEventLogging = <Path extends EventPath>({
@@ -7,7 +7,10 @@ const ViewEventLogging = <Path extends EventPath>({
   path,
   property,
 }: EventLoggingComponentProps<Path>) => {
-  const { event, eventPath } = EVENT_VALUE[path[0]][path[1]][path[2]];
+  const [feature, location, target] = path;
+  const eventName = EVENT_NAME[feature][location][target]['view'];
+  const eventPath = [feature, location, target].join(' > ');
+
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -20,9 +23,10 @@ const ViewEventLogging = <Path extends EventPath>({
         /**
          * event logging!
          */
-        console.log('ViewEventLogging fire!');
-        console.log('event', event);
-        console.log('eventPath', eventPath);
+        console.log('---------------')
+        console.log('View Event Logging!');
+        console.log('name', eventName);
+        console.log('path', eventPath);
         console.log('property', property);
       }
     }

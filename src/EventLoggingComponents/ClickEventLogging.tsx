@@ -1,5 +1,5 @@
 import React from 'react';
-import { EVENT_VALUE } from '@/dataEvent';
+import { EVENT_NAME } from '@/dataEvent';
 import { EventLoggingComponentProps, EventPath } from './types';
 
 const ClickEventLogging = <Path extends EventPath>({
@@ -7,7 +7,9 @@ const ClickEventLogging = <Path extends EventPath>({
   path,
   property,
 }: EventLoggingComponentProps<Path>) => {
-  const { event, eventPath } = EVENT_VALUE[path[0]][path[1]][path[2]];
+  const [feature, location, target] = path;
+  const eventName = EVENT_NAME[feature][location][target]['click'];
+  const eventPath = [feature, location, target].join(' > ');
 
   const child = React.Children.only(children);
   return React.cloneElement(child, {
@@ -15,9 +17,10 @@ const ClickEventLogging = <Path extends EventPath>({
       /**
        * event logging!
        */
-      console.log('ClickEventLogging fire!');
-      console.log('event', event);
-      console.log('eventPath', eventPath);
+      console.log('---------------')
+      console.log('Click Event Logging!');
+      console.log('name', eventName);
+      console.log('path', eventPath);
       console.log('property', property);
 
       if (child.props.onClick) {

@@ -1,15 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 
-type EventValueObject = Record<
-  string,
-  Record<string, Record<string, { event: string; eventPath: string }>>
->;
+type EventNameObject = {
+  [feature: string]: {
+    [location: string]: {
+      [target: string]: {
+        [action: string]: string
+      };
+    };
+  };
+};
 
-type EventPropertyTypeObject = Record<
-  string,
-  Record<string, Record<string, Record<string, string>>>
->;
+type EventPropertyObject = {
+  [feature: string]: {
+    [location: string]: {
+      [target: string]: {
+        [action: string]: Record<string, string>
+      },
+    };
+  };
+};
 
 type GoogleSpreadsheetRow = {
   c: [{ v: string | null }];
@@ -43,44 +53,53 @@ const fetchSpreadsheetData = async (sheetId: string): Promise<string[][]> => {
   return dataRows.map(parseSpreadsheetRow);
 };
 
-const generateEventValueFileData = (
-  eventValueObject: EventValueObject,
-) => `type EventValue = Record<string, Record<string, Record<string, { event: string; eventPath: string }>>>;
+const generateEventNameFileData = (
+  eventNameObject: EventNameObject,
+) => `type EventName = {
+  [feature: string]: {
+    [location: string]: {
+      [target: string]: {
+        [action: string]: string
+      };
+    };
+  };
+};
 
-export const EVENT_VALUE: EventValue = ${JSON.stringify(eventValueObject, null, 2)};\n`;
+export const EVENT_NAME: EventName = ${JSON.stringify(eventNameObject, null, 2)};\n`;
 
 // "string" -> string 과 같이 변환함
 const removeQuotes = (str: string) => str.replace(/["']/g, '');
-const generateEventTypeFileData = (eventPropertyTypeObject: EventPropertyTypeObject) =>
+const generateEventPropertyTypeFileData = (eventPropertyTypeObject: EventPropertyObject) =>
   `export type EventProperty = ${removeQuotes(
     JSON.stringify(eventPropertyTypeObject, null, 2),
   )};\n`;
 
-const generateIndexFileData = () => `export { EVENT_VALUE } from './eventValue';
+const generateIndexFileData = () => `export { EVENT_NAME } from './eventName';
 export type { EventProperty } from './eventProperty';`;
 
-const convertArrayToEventValueObject = (arr: string[][]): EventValueObject => {
-  const result: EventValueObject = {};
+const convertArrayToEventNameObject = (arr: string[][]): EventNameObject => {
+  const result: EventNameObject = {};
   arr
-    .filter(([l1, l2, l3, event]) => [l1, l2, l3, event].every(Boolean))
-    .forEach(([l1, l2, l3, event]) => {
-      const eventPath = [l1, l2, l3].join('/');
-      result[l1] = { ...result[l1] };
-      result[l1][l2] = { ...result[l1][l2] };
-      result[l1][l2][l3] = { event, eventPath };
+    .filter(([feature, location, target, action, name]) => [feature, location, target, action, name].every(Boolean))
+    .forEach(([feature, location, target, action, name]) => {
+      result[feature] = { ...result[feature] };
+      result[feature][location] = { ...result[feature][location] };
+      result[feature][location][target] = { ...result[feature][location][target] };
+      result[feature][location][target][action] = name;
     });
   return result;
 };
 
-const convertEventPropertyTypeObject = (arr: string[][]): EventPropertyTypeObject => {
-  const result: EventPropertyTypeObject = {};
+const convertEventPropertyObject = (arr: string[][]): EventPropertyObject => {
+  const result: EventPropertyObject = {};
 
   arr
-    .filter(([l1, l2, l3, event]) => [l1, l2, l3, event].every(Boolean))
-    .forEach(([l1, l2, l3, event, ...rest]) => {
-      result[l1] = { ...result[l1] };
-      result[l1][l2] = { ...result[l1][l2] };
-      result[l1][l2][l3] = { ...result[l1][l2][l3] };
+    .filter(([feature, location, target, action, event]) => [feature, location, target, action, event].every(Boolean))
+    .forEach(([feature, location, target, action, event, ...rest]) => {
+      result[feature] = { ...result[feature] };
+      result[feature][location] = { ...result[feature][location] };
+      result[feature][location][target] = { ...result[feature][location][target] };
+      result[feature][location][target][action] = { ...result[feature][location][target][action] };
 
       rest.reduce((obj, value, i) => {
         if (i % 2 !== 0) return obj;
@@ -90,7 +109,7 @@ const convertEventPropertyTypeObject = (arr: string[][]): EventPropertyTypeObjec
           obj[key] = val;
         }
         return obj;
-      }, result[l1][l2][l3]);
+      }, result[feature][location][target][action]);
     });
 
   return result;
@@ -107,15 +126,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const eventArr = await fetchSpreadsheetData(process.env.SHEET_ID as string);
 
-    const eventValueObject = convertArrayToEventValueObject(eventArr);
-    const eventPropertyTypeObject = convertEventPropertyTypeObject(eventArr);
+    const eventNameObject = convertArrayToEventNameObject(eventArr);
+    const eventPropertyTypeObject = convertEventPropertyObject(eventArr);
 
-    const eventValueFileData = generateEventValueFileData(eventValueObject);
-    const eventTypeFileData = generateEventTypeFileData(eventPropertyTypeObject);
+    const eventNameFileData = generateEventNameFileData(eventNameObject);
+    const eventPropertyFileData = generateEventPropertyTypeFileData(eventPropertyTypeObject);
     const indexFileData = generateIndexFileData();
 
-    await writeToFile(eventValueFileData, 'src/dataEvent/eventValue.ts');
-    await writeToFile(eventTypeFileData, 'src/dataEvent/eventProperty.ts');
+    await writeToFile(eventNameFileData, 'src/dataEvent/eventName.ts');
+    await writeToFile(eventPropertyFileData, 'src/dataEvent/eventProperty.ts');
     await writeToFile(indexFileData, 'src/dataEvent/index.ts');
 
     res.status(200).json({});

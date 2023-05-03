@@ -1,2 +1,2 @@
-export { EVENT_VALUE } from './eventValue';
+export { EVENT_NAME } from './eventName';
 export type { EventProperty } from './eventProperty';
