@@ -22,11 +22,11 @@ const ViewEventLogging = <Path extends EventPath>({
   const eventPath = [feature, location, target].join(' > ');
 
   const ref = useRef<HTMLDivElement>(null);
-  const isVisibleRef = useRef(false);
+  const isViewedRef = useRef(false);
 
   const handleVisibilityChange = useCallback(() => {
-    if (!isVisibleRef.current && ref.current && isInViewport(ref.current)) {
-      isVisibleRef.current = true;
+    if (!isViewedRef.current && ref.current && isInViewport(ref.current)) {
+      isViewedRef.current = true;
       window.removeEventListener('scroll', handleVisibilityChange);
       /**
        * event logging!
