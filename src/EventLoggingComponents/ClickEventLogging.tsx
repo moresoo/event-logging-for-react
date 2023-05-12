@@ -1,6 +1,6 @@
 import React from 'react';
 import { EVENT_NAME } from '@/dataEvent';
-import { EventLoggingComponentProps, EventPath } from './types';
+import { EventLoggingComponentProps } from './types';
 
 const ClickEventLogging = ({ children, path, property }: EventLoggingComponentProps<'click'>) => {
   const [feature, type, location, target] = path;

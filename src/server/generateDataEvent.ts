@@ -120,53 +120,67 @@ const findClosetValue = (rows: GoogleSpreadsheetRow[], startIndex: number, key: 
   return value;
 };
 
+const replaceSpaceToUnderscore = (str: string) => str.replaceAll(' ', '_');
+
+const parseRow = (
+  row: GoogleSpreadsheetRow,
+  rowIndex: number,
+  rows: GoogleSpreadsheetRow[],
+  keyArray: string[],
+  title: string,
+): string[] => {
+  const rowData: string[] = [];
+  rowData.push(replaceSpaceToUnderscore(title));
+
+  keyArray.forEach((key) => {
+    const value = row[key] || findClosetValue(rows, rowIndex, key);
+    if (value) {
+      rowData.push(replaceSpaceToUnderscore(value));
+    }
+  });
+
+  return rowData;
+};
+
 const generateDataEvent = async () => {
   try {
+    console.log('fetching google spread sheet...');
     const doc = await fetchSpreadsheetData();
-
     const sheetCount = doc.sheetCount;
 
     const allEventRows: string[][] = [];
+
+    console.log('read all sheet rows and parsing to array...');
+    // 모든 sheet를 반복
     for (let i = 0; i < sheetCount; i++) {
       const sheets = doc.sheetsByIndex[i];
 
       const rows = await sheets.getRows();
-      const keys = sheets.headerValues;
+      const keyArray = sheets.headerValues;
       const title = sheets.title;
 
-      rows.forEach((row, rowIdx) => {
-        const currentRow = keys.reduce(
-          (acc, key) => {
-            const value = row[key] ? row[key] : findClosetValue(rows, rowIdx, key);
-            if (!value) {
-              return acc;
-            }
-            return [...acc, value.replaceAll(' ', '_')];
-          },
-          [title.replaceAll(' ', '_')],
-        );
-        allEventRows.push(currentRow);
-      });
+      // sheet의 모든 row를 반복하며 parsing
+      const currentSheetRows = rows.map((row, idx, arr) =>
+        parseRow(row, idx, arr, keyArray, title),
+      );
+      allEventRows.push(...currentSheetRows);
     }
 
+    console.log('convert all eventRows array to object...');
     const eventNameObject = convertArrayToEventNameObject(allEventRows);
     const eventPropertyTypeObject = convertEventPropertyObject(allEventRows);
 
+    console.log('convert object to fileString...');
     const eventNameFileData = generateEventNameFileData(eventNameObject);
     const eventPropertyFileData = generateEventPropertyTypeFileData(eventPropertyTypeObject);
     const indexFileData = generateIndexFileData();
 
-    console.log('eventNameObject', eventNameFileData);
-    console.log('eventPropertyTypeObject', eventPropertyFileData);
-
+    console.log('writing file...');
     await writeToFile(eventNameFileData, 'src/dataEvent/eventName.ts');
     await writeToFile(eventPropertyFileData, 'src/dataEvent/eventProperty.ts');
     await writeToFile(indexFileData, 'src/dataEvent/index.ts');
-
-    // res.status(200).json('The data event generator succeeded');
   } catch (e) {
     throw e;
-    // res.status(500).json('오류가 발생했습니다.');
   }
 };
 
