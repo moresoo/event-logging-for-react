@@ -2,14 +2,10 @@ import React from 'react';
 import { EVENT_NAME } from '@/dataEvent';
 import { EventLoggingComponentProps, EventPath } from './types';
 
-const ClickEventLogging = <Path extends EventPath>({
-  children,
-  path,
-  property,
-}: EventLoggingComponentProps<Path, 'click'>) => {
-  const [feature, location, target] = path;
-  const eventName = EVENT_NAME[feature][location][target]['click'];
-  const eventPath = [feature, location, target].join(' > ');
+const ClickEventLogging = ({ children, path, property }: EventLoggingComponentProps<'click'>) => {
+  const [feature, type, location, target] = path;
+  const eventName = (EVENT_NAME as any)[feature][type][location][target]['click'];
+  const eventPath = [feature, type, location, target].join(' > ');
 
   const child = React.Children.only(children);
   return React.cloneElement(child, {

@@ -12,13 +12,9 @@ const isInViewport = (element: HTMLElement) => {
   );
 };
 
-const ViewEventLogging = <Path extends EventPath>({
-  children,
-  path,
-  property,
-}: EventLoggingComponentProps<Path, 'view'>) => {
-  const [feature, location, target] = path;
-  const eventName = EVENT_NAME[feature][location][target]['view'];
+const ViewEventLogging = ({ children, path, property }: EventLoggingComponentProps<'view'>) => {
+  const [feature, type, location, target] = path;
+  const eventName = (EVENT_NAME as any)[feature][type][location][target]['view'];
   const eventPath = [feature, location, target].join(' > ');
 
   const ref = useRef<HTMLDivElement>(null);
