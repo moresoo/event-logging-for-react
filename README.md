@@ -1,10 +1,14 @@
 # 1. Google SpreadSheet 기반 데이터 이벤트 제너레이터
 
+## Input
+
 <img width="1598" alt="스크린샷 2023-05-13 오후 10 49 21" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e6ac59bb-e998-49d5-b761-9940e5494b68">
 
 > https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg/edit#gid=0
 
-### 데이터 이벤트 Map
+## Output
+
+### 데이터 이벤트명 Map
 
 ```typescript
 // src/dataEvent/eventName.ts
@@ -131,6 +135,8 @@ export type EventProperty = {
 </ClickEventLogging>
 ```
 
+<img width="772" alt="스크린샷 2023-05-13 오후 11 19 23" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/27686036-11b0-40d3-8893-7bd3b9da8346">
+
 ### (2) 뷰 이벤트 로깅 컴포넌트
 
 ```tsx
@@ -143,3 +149,5 @@ export type EventProperty = {
   </ViewEventLogging>
 )}
 ```
+
+<img width="772" alt="스크린샷 2023-05-13 오후 11 19 33" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e17dd942-e4a2-4d3d-aedf-707e1134d9aa">
