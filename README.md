@@ -7,6 +7,8 @@
 ### 데이터 이벤트 Map
 
 ```typescript
+// src/dataEvent/eventName.ts
+
 export const EVENT_NAME = {
   "인사이트": {
     "메인": {
@@ -51,6 +53,8 @@ export const EVENT_NAME = {
 ### 데이터 프로퍼티 Type
 
 ```typescript
+// src/dataEvent/eventProperty.ts
+
 export type EventProperty = {
   "인사이트": {
     "메인": {
