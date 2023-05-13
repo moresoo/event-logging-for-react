@@ -15,7 +15,7 @@ const isInViewport = (element: HTMLElement) => {
 const ViewEventLogging = ({ children, path, property }: EventLoggingComponentProps<'view'>) => {
   const [feature, type, location, target] = path;
   const eventName = (EVENT_NAME as any)[feature][type][location][target]['view'];
-  const eventPath = [feature, location, target].join(' > ');
+  const eventPath = [feature, type, location, target].join(' > ');
 
   const ref = useRef<HTMLDivElement>(null);
   const isViewedRef = useRef(false);
@@ -29,9 +29,9 @@ const ViewEventLogging = ({ children, path, property }: EventLoggingComponentPro
        */
       console.log('---------------');
       console.log('View Event Logging!');
-      console.log('name', eventName);
-      console.log('path', eventPath);
-      console.log('property', property);
+      console.log('eventName: ', eventName);
+      console.log('eventPath: ', eventPath);
+      console.log('property: ', property);
     }
   }, [eventName, eventPath, property]);
 

@@ -15,9 +15,9 @@ const ClickEventLogging = ({ children, path, property }: EventLoggingComponentPr
        */
       console.log('---------------');
       console.log('Click Event Logging!');
-      console.log('name', eventName);
-      console.log('path', eventPath);
-      console.log('property', property);
+      console.log('eventName:', eventName);
+      console.log('eventPath:', eventPath);
+      console.log('property:', property);
 
       if (child.props.onClick) {
         child.props.onClick();
