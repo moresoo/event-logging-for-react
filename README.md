@@ -112,7 +112,7 @@ export type EventProperty = {
 };
 ```
 
-# 2. React + Typescript 이벤트 로깅 컴포넌트
+# 2. 이벤트 로깅 컴포넌트 (React + Typescript)
 
 ### (1) 클릭 이벤트 로깅 컴포넌트
 
