@@ -42,15 +42,20 @@ const fetchSpreadsheetData = async (): Promise<GoogleSpreadsheet> => {
   }
 };
 
-const generateEventNameFileData = (eventNameObject: EventNameObject) =>
-  `export const EVENT_NAME = ${JSON.stringify(eventNameObject, null, 2)};\n`;
+const generateEventNameFileData = (eventNameObject: EventNameObject) => {
+  const jsonString = JSON.stringify(eventNameObject, null, 2);
+  return `export const EVENT_NAME = ${jsonString};\n`;
+};
 
 // "string" -> string 과 같이 변환함
-const removeQuotes = (str: string) => str.replace(/["']/g, '');
-const generateEventPropertyTypeFileData = (eventPropertyTypeObject: EventPropertyObject) =>
-  `export type EventProperty = ${removeQuotes(
-    JSON.stringify(eventPropertyTypeObject, null, 2),
-  )};\n`;
+const removeQuotationMarkOfValue = (jsonString: string) =>
+  jsonString.replace(/"([^"]+)": "(.*?)"/g, (_, p1, p2) => `"${p1}": ${p2}`);
+
+const generateEventPropertyTypeFileData = (eventPropertyTypeObject: EventPropertyObject) => {
+  const jsonString = JSON.stringify(eventPropertyTypeObject, null, 2);
+  const formattedString = removeQuotationMarkOfValue(jsonString);
+  return `export type EventProperty = ${formattedString};\n`;
+};
 
 const generateIndexFileData = () => `export { EVENT_NAME } from './eventName';
 export type { EventProperty } from './eventProperty';`;
@@ -120,6 +125,8 @@ const findClosetValue = (rows: GoogleSpreadsheetRow[], startIndex: number, key: 
   return value;
 };
 
+// sheet title, 구분 (Type), 위치 (Location), 대상 (Target) 이라면
+const isPossibleKorean = (idx: number) => idx < 4;
 const replaceSpaceToUnderscore = (str: string) => str.replaceAll(' ', '_');
 
 const parseRow = (
@@ -129,17 +136,18 @@ const parseRow = (
   keyArray: string[],
   title: string,
 ): string[] => {
-  const rowData: string[] = [];
-  rowData.push(replaceSpaceToUnderscore(title));
+  const rowData: string[] = [title];
 
   keyArray.forEach((key) => {
     const value = row[key] || findClosetValue(rows, rowIndex, key);
     if (value) {
-      rowData.push(replaceSpaceToUnderscore(value));
+      rowData.push(value);
     }
   });
 
-  return rowData;
+  return rowData.map((rowValue, idx) =>
+    isPossibleKorean(idx) ? replaceSpaceToUnderscore(rowValue) : rowValue,
+  );
 };
 
 const generateDataEvent = async () => {

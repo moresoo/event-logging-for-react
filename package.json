@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generateDataEvent": "ts-node src/server/generateDataEvent.ts"
   },
   "dependencies": {
     "@types/node": "18.16.3",
