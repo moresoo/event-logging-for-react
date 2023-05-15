@@ -16,12 +16,12 @@ GOOGLE_SERVICE_ACCOUNT_EMAIL=/* GOOGLE_SERVICE_ACCOUNT_EMAIL */
 GOOGLE_PRIVATE_KEY=/* GOOGLE_PRIVATE_KEY */
 ```
 
+> 참고: https://github.com/theoephraim/node-google-spreadsheet
+
 적용 후 
 ```
 yarn generate:dataEvent
 ```
-
-> 참고: https://github.com/theoephraim/node-google-spreadsheet
 
 ## 1. Google SpreadSheet 기반 데이터 이벤트 생성
 
