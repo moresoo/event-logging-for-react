@@ -1,38 +1,153 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 1. Google SpreadSheet 기반 데이터 이벤트 제너레이터
 
-## Getting Started
+## Input
 
-First, run the development server:
+<img width="1598" alt="스크린샷 2023-05-13 오후 10 49 21" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e6ac59bb-e998-49d5-b761-9940e5494b68">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+> https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg/edit#gid=0
+
+## Output
+
+### 데이터 이벤트명 Map
+
+```typescript
+// src/dataEvent/eventName.ts
+
+export const EVENT_NAME = {
+  "인사이트": {
+    "메인": {
+      "카테고리_리스트": {
+        "카테고리": {
+          "click": "click__insight__category"
+        }
+      },
+      "인사이트_리스트": {
+        "콘텐츠_카드": {
+          "click": "click__insight__insightCard",
+          "view": "view__insight__insightCard"
+        },
+        "카테고리": {
+          "click": "click__insight__category"
+        }
+      }
+    },
+    "상세페이지": {
+      "콘텐츠_헤더": {
+        "카테고리": {
+          "click": "click__insight__category"
+        },
+        "공유하기": {
+          "click": "click__insight__share"
+        }
+      },
+      "콘텐츠_푸터": {
+        "추천_콘텐츠_카드": {
+          "click": "click__insight__insightCard",
+          "view": "view__insight__insightCard"
+        },
+        "카테고리": {
+          "click": "click__insight__category"
+        }
+      }
+    }
+  }
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 데이터 프로퍼티 Type
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```typescript
+// src/dataEvent/eventProperty.ts
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+export type EventProperty = {
+  "인사이트": {
+    "메인": {
+      "카테고리_리스트": {
+        "카테고리": {
+          "click": {
+            "name": string
+          }
+        }
+      },
+      "인사이트_리스트": {
+        "콘텐츠_카드": {
+          "click": {
+            "insightId": string,
+            "category": string,
+            "isBookmarked": boolean
+          },
+          "view": {
+            "insightId": string
+          }
+        },
+        "카테고리": {
+          "click": {
+            "name": string
+          }
+        }
+      }
+    },
+    "상세페이지": {
+      "콘텐츠_헤더": {
+        "카테고리": {
+          "click": {
+            "name": string
+          }
+        },
+        "공유하기": {
+          "click": {
+            "type": 'kakao' | 'facebook' | 'url'
+          }
+        }
+      },
+      "콘텐츠_푸터": {
+        "추천_콘텐츠_카드": {
+          "click": {
+            "insightId": string
+          },
+          "view": {
+            "insightId": string
+          }
+        },
+        "카테고리": {
+          "click": {
+            "name": string
+          }
+        }
+      }
+    }
+  }
+};
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# 2. 이벤트 로깅 컴포넌트 (React + Typescript)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### (1) 클릭 이벤트 로깅 컴포넌트
 
-## Learn More
+```tsx
+<ClickEventLogging
+  path={['인사이트', '메인', '인사이트_리스트', '콘텐츠_카드']}
+  property={{ insightId: 'abc', category: '엔젤투자', isBookmarked: true }}
+>
+  <button onClick={() => console.log('인사이트_카드_클릭')}>
+    {`인사이트 > 인사이트_리스트 > 인사이트_카드`}
+  </button>
+</ClickEventLogging>
+```
 
-To learn more about Next.js, take a look at the following resources:
+<img width="772" alt="스크린샷 2023-05-13 오후 11 19 23" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/27686036-11b0-40d3-8893-7bd3b9da8346">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### (2) 뷰 이벤트 로깅 컴포넌트
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```tsx
+{isVisible && (
+  <ViewEventLogging
+    path={['인사이트', '메인', '인사이트_리스트', '콘텐츠_카드']}
+    property={{ insightId: 'abc' }}
+  >
+    <div>{`인사이트 카드 View`}</div>
+  </ViewEventLogging>
+)}
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<img width="772" alt="스크린샷 2023-05-13 오후 11 19 33" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e17dd942-e4a2-4d3d-aedf-707e1134d9aa">
