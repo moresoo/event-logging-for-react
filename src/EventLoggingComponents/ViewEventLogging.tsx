@@ -1,6 +1,6 @@
-import { EventLoggingComponentProps, EventPath } from './types';
+import { AllEventPath, EventLoggingComponentProps } from './types';
 import { EVENT_NAME } from '@/dataEvent';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 const isInViewport = (element: HTMLElement) => {
   const rect = element.getBoundingClientRect();
@@ -12,7 +12,11 @@ const isInViewport = (element: HTMLElement) => {
   );
 };
 
-const ViewEventLogging = ({ children, path, property }: EventLoggingComponentProps<'view'>) => {
+const ViewEventLogging = <Path extends AllEventPath>({
+  children,
+  path,
+  property,
+}: EventLoggingComponentProps<Path, 'view'>) => {
   const [feature, type, location, target] = path;
   const eventName = (EVENT_NAME as any)[feature][type][location][target]['view'];
   const eventPath = [feature, type, location, target].join(' > ');

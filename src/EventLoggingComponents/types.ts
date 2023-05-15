@@ -1,18 +1,18 @@
 import { EventProperty } from '@/dataEvent';
-import React from 'react';
 
-type Path<T, TPath extends string[] = []> = TPath['length'] extends 4
+type EventPath<T, TPath extends string[] = []> = TPath['length'] extends 4
   ? TPath
   : keyof T extends infer Key extends string
   ? Key extends keyof T
-    ? Path<T[Key], [...TPath, Key]>
+    ? EventPath<T[Key], [...TPath, Key]>
     : never
   : never;
 
-export type EventPath = Path<EventProperty>;
+export type AllEventPath = EventPath<EventProperty>;
+
 type EventAction = 'click' | 'view';
 
-type EventPropertyForPath<Path extends EventPath, Action extends EventAction> = Path extends [
+type EventPropertyForPath<Path, Action extends EventAction> = Path extends [
   infer Feature,
   infer Type,
   infer Location,
@@ -31,8 +31,8 @@ type EventPropertyForPath<Path extends EventPath, Action extends EventAction> = 
     : never
   : never;
 
-export type EventLoggingComponentProps<Action extends EventAction> = {
-  children: React.ReactElement;
-  path: EventPath;
-  property: EventPropertyForPath<EventPath, Action>;
+export type EventLoggingComponentProps<Path extends AllEventPath, Action extends EventAction> = {
+  children: JSX.Element;
+  path: Path;
+  property: EventPropertyForPath<Path, Action>;
 };
