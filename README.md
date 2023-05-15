@@ -1,14 +1,39 @@
-# 1. Google SpreadSheet 기반 데이터 이벤트 제너레이터
+## 0. Start
 
-## Input
+### 실행하기
+```
+yarn dev
+```
+
+### 데이터 이벤트 생성하기
+
+
+```
+// .env
+
+GOOGLE_SHEET_ID=/* GOOGLE_SHEET_ID */
+GOOGLE_SERVICE_ACCOUNT_EMAIL=/* GOOGLE_SERVICE_ACCOUNT_EMAIL */
+GOOGLE_PRIVATE_KEY=/* GOOGLE_PRIVATE_KEY */
+```
+
+적용 후 
+```
+yarn generate:dataEvent
+```
+
+> 참고: https://github.com/theoephraim/node-google-spreadsheet
+
+## 1. Google SpreadSheet 기반 데이터 이벤트 생성
+
+### Input
 
 <img width="1598" alt="스크린샷 2023-05-13 오후 10 49 21" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e6ac59bb-e998-49d5-b761-9940e5494b68">
 
 > https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg/edit#gid=0
 
-## Output
+### Output
 
-### 데이터 이벤트명 Map
+#### 데이터 이벤트명 Map
 
 ```typescript
 // src/dataEvent/eventName.ts
@@ -54,7 +79,7 @@ export const EVENT_NAME = {
 };
 ```
 
-### 데이터 프로퍼티 Type
+#### 데이터 프로퍼티 Type
 
 ```typescript
 // src/dataEvent/eventProperty.ts
@@ -120,7 +145,7 @@ export type EventProperty = {
 };
 ```
 
-# 2. 이벤트 로깅 컴포넌트 (React + Typescript)
+## 2. 이벤트 로깅 컴포넌트 (React + Typescript)
 
 ### (1) 클릭 이벤트 로깅 컴포넌트
 

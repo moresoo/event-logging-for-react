@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generateDataEvent": "ts-node src/server/generateDataEvent.ts"
+    "generate:dataEvent": "ts-node src/server/generateDataEvent.ts"
   },
   "dependencies": {
     "@types/node": "18.16.3",
