@@ -33,7 +33,7 @@ const fetchSpreadsheetData = async (): Promise<GoogleSpreadsheet> => {
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
     await doc.useServiceAccountAuth({
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL as string,
-      private_key: (process.env.GOOGLE_PRIVATE_KEY as string).replace(/(\\r)|(\\n)/g, '\n'),
+      private_key: (process.env.GOOGLE_PRIVATE_KEY as string).replace(/(\\n)/g, '\n'),
     });
     await doc.loadInfo();
     return doc;
