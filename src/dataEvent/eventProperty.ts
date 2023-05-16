@@ -8,15 +8,15 @@ export type EventProperty = {
           }
         }
       },
-      "인사이트_리스트": {
+      "콘텐츠_리스트": {
         "콘텐츠_카드": {
           "click": {
-            "insightId": string,
+            "contentsId": string,
             "category": string,
             "isBookmarked": boolean
           },
           "view": {
-            "insightId": string
+            "contentsId": string
           }
         },
         "카테고리": {
@@ -42,10 +42,10 @@ export type EventProperty = {
       "콘텐츠_푸터": {
         "추천_콘텐츠_카드": {
           "click": {
-            "insightId": string
+            "contentsId": string
           },
           "view": {
-            "insightId": string
+            "contentsId": string
           }
         },
         "카테고리": {

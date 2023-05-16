@@ -1,4 +1,4 @@
-import { EventProperty } from '@/dataEvent';
+import { EventProperty, EVENT_NAME } from '@/dataEvent';
 
 type EventPath<T, TPath extends string[] = []> = TPath['length'] extends 4
   ? TPath
@@ -8,7 +8,7 @@ type EventPath<T, TPath extends string[] = []> = TPath['length'] extends 4
     : never
   : never;
 
-export type AllEventPath = EventPath<EventProperty>;
+export type AllEventPath = EventPath<typeof EVENT_NAME>;
 
 type EventAction = 'click' | 'view';
 

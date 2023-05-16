@@ -6,10 +6,10 @@ export const EVENT_NAME = {
           "click": "click__insight__category"
         }
       },
-      "인사이트_리스트": {
+      "콘텐츠_리스트": {
         "콘텐츠_카드": {
-          "click": "click__insight__insightCard",
-          "view": "view__insight__insightCard"
+          "click": "click__insight__contentsCard",
+          "view": "view__insight__contentsCard"
         },
         "카테고리": {
           "click": "click__insight__category"
@@ -27,8 +27,8 @@ export const EVENT_NAME = {
       },
       "콘텐츠_푸터": {
         "추천_콘텐츠_카드": {
-          "click": "click__insight__insightCard",
-          "view": "view__insight__insightCard"
+          "click": "click__insight__contentsCard",
+          "view": "view__insight__contentsCard"
         },
         "카테고리": {
           "click": "click__insight__category"
