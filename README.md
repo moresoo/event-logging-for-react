@@ -47,7 +47,7 @@ export const EVENT_NAME = {
           "view": "view__insight__contents"
         }
       },
-      "카테고리_리스트": {
+      "카테고리_슬라이더": {
         "카테고리": {
           "click": "click__insight__category"
         }
@@ -100,7 +100,7 @@ export type EventProperty = {
           }
         }
       },
-      "카테고리_리스트": {
+      "카테고리_슬라이더": {
         "카테고리": {
           "click": {
             "name": string
@@ -162,7 +162,7 @@ export type EventProperty = {
   path={['인사이트', '메인', '인기_콘텐츠', '콘텐츠']}
   property={{ contentsId: 'abc' }}
 >
-  <button onClick={() => console.log('카테고리 Click')}>
+  <button onClick={() => console.log('콘텐츠 Click')}>
     {`인사이트 > 메인 > 인기_콘텐츠 > 콘텐츠`}
   </button>
 </ClickEventLogging>

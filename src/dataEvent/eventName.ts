@@ -7,7 +7,7 @@ export const EVENT_NAME = {
           "view": "view__insight__contents"
         }
       },
-      "카테고리_리스트": {
+      "카테고리_슬라이더": {
         "카테고리": {
           "click": "click__insight__category"
         }

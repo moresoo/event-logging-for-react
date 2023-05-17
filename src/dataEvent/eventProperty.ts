@@ -11,7 +11,7 @@ export type EventProperty = {
           }
         }
       },
-      "카테고리_리스트": {
+      "카테고리_슬라이더": {
         "카테고리": {
           "click": {
             "name": string
