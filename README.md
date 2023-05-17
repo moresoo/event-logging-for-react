@@ -27,7 +27,7 @@ yarn generate:dataEvent
 
 ### Input
 
-<img width="1598" alt="스크린샷 2023-05-13 오후 10 49 21" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e6ac59bb-e998-49d5-b761-9940e5494b68">
+<img width="1604" alt="스크린샷 2023-05-18 오전 2 41 30" src="https://github.com/moresoo/event-logging-for-react/assets/45632773/9a5bb471-3e78-4208-a1e3-6fc69df4a9a8">
 
 > https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg
 
@@ -168,7 +168,7 @@ export type EventProperty = {
 </ClickEventLogging>
 ```
 
-<img width="772" alt="스크린샷 2023-05-13 오후 11 19 23" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/27686036-11b0-40d3-8893-7bd3b9da8346">
+<img width="693" alt="스크린샷 2023-05-18 오전 2 44 37" src="https://github.com/moresoo/event-logging-for-react/assets/45632773/ea25e9d4-3c83-43f9-ace2-eeb70f5bbcb2">
 
 ### (2) 뷰 이벤트 로깅 컴포넌트
 
@@ -183,4 +183,4 @@ export type EventProperty = {
 )}
 ```
 
-<img width="772" alt="스크린샷 2023-05-13 오후 11 19 33" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e17dd942-e4a2-4d3d-aedf-707e1134d9aa">
+<img width="690" alt="스크린샷 2023-05-18 오전 2 44 49" src="https://github.com/moresoo/event-logging-for-react/assets/45632773/228ef4b6-dcb9-4595-a67c-7952a83be84b">
