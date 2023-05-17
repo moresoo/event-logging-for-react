@@ -6,15 +6,6 @@ export default function Home() {
 
   return (
     <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-      <button
-        onClick={() => {
-          console.log('eventName', 'insight/main/categoryList/categoryClick');
-          console.log('eventProperty', { name: '엔젤투자 ' });
-        }}
-      >
-        asdf
-      </button>
-
       <ClickEventLogging
         path={['인사이트', '메인', '콘텐츠_리스트', '콘텐츠_카드']}
         property={{ contentsId: 'abc', category: '엔젤투자', isBookmarked: true }}
