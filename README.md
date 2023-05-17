@@ -29,7 +29,7 @@ yarn generate:dataEvent
 
 <img width="1598" alt="스크린샷 2023-05-13 오후 10 49 21" src="https://github.com/moresoo/data-event-design-for-react/assets/45632773/e6ac59bb-e998-49d5-b761-9940e5494b68">
 
-> https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg/edit#gid=0
+> https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg
 
 ### Output
 
@@ -41,42 +41,46 @@ yarn generate:dataEvent
 export const EVENT_NAME = {
   "인사이트": {
     "메인": {
+      "인기_콘텐츠_리스트": {
+        "콘텐츠": {
+          "click": "click__insight__contents",
+          "view": "view__insight__contents"
+        }
+      },
       "카테고리_리스트": {
         "카테고리": {
           "click": "click__insight__category"
         }
       },
-      "인사이트_리스트": {
-        "콘텐츠_카드": {
-          "click": "click__insight__insightCard",
-          "view": "view__insight__insightCard"
-        },
-        "카테고리": {
-          "click": "click__insight__category"
+      "콘텐츠_리스트": {
+        "콘텐츠": {
+          "click": "click__insight__contents",
+          "view": "view__insight__contents"
         }
       }
     },
     "상세페이지": {
       "콘텐츠_헤더": {
-        "카테고리": {
-          "click": "click__insight__category"
-        },
         "공유하기": {
           "click": "click__insight__share"
         }
       },
-      "콘텐츠_푸터": {
-        "추천_콘텐츠_카드": {
-          "click": "click__insight__insightCard",
-          "view": "view__insight__insightCard"
-        },
-        "카테고리": {
-          "click": "click__insight__category"
+      "추천_콘텐츠_리스트": {
+        "콘텐츠": {
+          "click": "click__insight__contents",
+          "view": "view__insight__contents"
+        }
+      },
+      "관련_콘텐츠_리스트": {
+        "콘텐츠": {
+          "click": "click__insight__contents",
+          "view": "view__insight__contents"
         }
       }
     }
   }
 };
+
 ```
 
 #### 데이터 프로퍼티 Type
@@ -87,6 +91,16 @@ export const EVENT_NAME = {
 export type EventProperty = {
   "인사이트": {
     "메인": {
+      "인기_콘텐츠_리스트": {
+        "콘텐츠": {
+          "click": {
+            "contentsId": string
+          },
+          "view": {
+            "contentsId": string
+          }
+        }
+      },
       "카테고리_리스트": {
         "카테고리": {
           "click": {
@@ -94,49 +108,44 @@ export type EventProperty = {
           }
         }
       },
-      "인사이트_리스트": {
-        "콘텐츠_카드": {
+      "콘텐츠_리스트": {
+        "콘텐츠": {
           "click": {
-            "insightId": string,
+            "contentsId": string,
             "category": string,
             "isBookmarked": boolean
           },
           "view": {
-            "insightId": string
-          }
-        },
-        "카테고리": {
-          "click": {
-            "name": string
+            "contentsId": string
           }
         }
       }
     },
     "상세페이지": {
       "콘텐츠_헤더": {
-        "카테고리": {
-          "click": {
-            "name": string
-          }
-        },
         "공유하기": {
           "click": {
             "type": 'kakao' | 'facebook' | 'url'
           }
         }
       },
-      "콘텐츠_푸터": {
-        "추천_콘텐츠_카드": {
+      "추천_콘텐츠_리스트": {
+        "콘텐츠": {
           "click": {
-            "insightId": string
+            "contentsId": string
           },
           "view": {
-            "insightId": string
+            "contentsId": string
           }
-        },
-        "카테고리": {
+        }
+      },
+      "관련_콘텐츠_리스트": {
+        "콘텐츠": {
           "click": {
-            "name": string
+            "contentsId": string
+          },
+          "view": {
+            "contentsId": string
           }
         }
       }
@@ -151,11 +160,11 @@ export type EventProperty = {
 
 ```tsx
 <ClickEventLogging
-  path={['인사이트', '메인', '인사이트_리스트', '콘텐츠_카드']}
-  property={{ insightId: 'abc', category: '엔젤투자', isBookmarked: true }}
+  path={['인사이트', '메인', '인기_콘텐츠_리스트', '콘텐츠']}
+  property={{ contentsId: 'abc' }}
 >
-  <button onClick={() => console.log('인사이트_카드_클릭')}>
-    {`인사이트 > 인사이트_리스트 > 인사이트_카드`}
+  <button onClick={() => console.log('카테고리 Click')}>
+    {`인사이트 > 메인 > 인기_콘텐츠_리스트 > 콘텐츠`}
   </button>
 </ClickEventLogging>
 ```
@@ -167,10 +176,10 @@ export type EventProperty = {
 ```tsx
 {isVisible && (
   <ViewEventLogging
-    path={['인사이트', '메인', '인사이트_리스트', '콘텐츠_카드']}
-    property={{ insightId: 'abc' }}
+    path={['인사이트', '메인', '콘텐츠_리스트', '콘텐츠']}
+    property={{ contentsId: 'abc' }}
   >
-    <div>{`인사이트 카드 View`}</div>
+    <div>{`인사이트 > 메인 > 콘텐츠_리스트 > 콘텐츠`}</div>
   </ViewEventLogging>
 )}
 ```
