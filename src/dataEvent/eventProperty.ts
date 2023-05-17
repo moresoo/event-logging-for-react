@@ -1,7 +1,7 @@
 export type EventProperty = {
   "인사이트": {
     "메인": {
-      "인기_콘텐츠_리스트": {
+      "인기_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string
@@ -18,7 +18,7 @@ export type EventProperty = {
           }
         }
       },
-      "콘텐츠_리스트": {
+      "리스트_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string,
@@ -39,7 +39,7 @@ export type EventProperty = {
           }
         }
       },
-      "추천_콘텐츠_리스트": {
+      "추천_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string
@@ -49,7 +49,7 @@ export type EventProperty = {
           }
         }
       },
-      "관련_콘텐츠_리스트": {
+      "관련_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string

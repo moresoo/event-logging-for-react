@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
       <ClickEventLogging
-        path={['인사이트', '메인', '인기_콘텐츠_리스트', '콘텐츠']}
+        path={['인사이트', '메인', '인기_콘텐츠', '콘텐츠']}
         property={{ contentsId: 'abc' }}
       >
         <button onClick={() => console.log('카테고리 Click')}>
@@ -16,7 +16,7 @@ export default function Home() {
       </ClickEventLogging>
 
       <ClickEventLogging
-        path={['인사이트', '메인', '콘텐츠_리스트', '콘텐츠']}
+        path={['인사이트', '메인', '리스트_콘텐츠', '콘텐츠']}
         property={{ contentsId: 'abc', category: '엔젤투자', isBookmarked: true }}
       >
         <button onClick={() => console.log('콘텐츠 Click')}>
@@ -27,10 +27,10 @@ export default function Home() {
       <button onClick={() => setIsVisible((prev) => !prev)}>뷰 이벤트 Toggle</button>
       {isVisible && (
         <ViewEventLogging
-          path={['인사이트', '메인', '콘텐츠_리스트', '콘텐츠']}
+          path={['인사이트', '메인', '리스트_콘텐츠', '콘텐츠']}
           property={{ contentsId: 'abc' }}
         >
-          <div>{`인사이트 > 메인 > 콘텐츠_리스트 > 콘텐츠`}</div>
+          <div>{`인사이트 > 메인 > 리스트_콘텐츠 > 콘텐츠`}</div>
         </ViewEventLogging>
       )}
     </div>

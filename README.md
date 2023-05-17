@@ -41,7 +41,7 @@ yarn generate:dataEvent
 export const EVENT_NAME = {
   "인사이트": {
     "메인": {
-      "인기_콘텐츠_리스트": {
+      "인기_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
@@ -52,7 +52,7 @@ export const EVENT_NAME = {
           "click": "click__insight__category"
         }
       },
-      "콘텐츠_리스트": {
+      "리스트_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
@@ -65,13 +65,13 @@ export const EVENT_NAME = {
           "click": "click__insight__share"
         }
       },
-      "추천_콘텐츠_리스트": {
+      "추천_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
         }
       },
-      "관련_콘텐츠_리스트": {
+      "관련_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
@@ -80,7 +80,6 @@ export const EVENT_NAME = {
     }
   }
 };
-
 ```
 
 #### 데이터 프로퍼티 Type
@@ -91,7 +90,7 @@ export const EVENT_NAME = {
 export type EventProperty = {
   "인사이트": {
     "메인": {
-      "인기_콘텐츠_리스트": {
+      "인기_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string
@@ -108,7 +107,7 @@ export type EventProperty = {
           }
         }
       },
-      "콘텐츠_리스트": {
+      "리스트_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string,
@@ -129,7 +128,7 @@ export type EventProperty = {
           }
         }
       },
-      "추천_콘텐츠_리스트": {
+      "추천_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string
@@ -139,7 +138,7 @@ export type EventProperty = {
           }
         }
       },
-      "관련_콘텐츠_리스트": {
+      "관련_콘텐츠": {
         "콘텐츠": {
           "click": {
             "contentsId": string
@@ -160,11 +159,11 @@ export type EventProperty = {
 
 ```tsx
 <ClickEventLogging
-  path={['인사이트', '메인', '인기_콘텐츠_리스트', '콘텐츠']}
+  path={['인사이트', '메인', '인기_콘텐츠', '콘텐츠']}
   property={{ contentsId: 'abc' }}
 >
   <button onClick={() => console.log('카테고리 Click')}>
-    {`인사이트 > 메인 > 인기_콘텐츠_리스트 > 콘텐츠`}
+    {`인사이트 > 메인 > 인기_콘텐츠 > 콘텐츠`}
   </button>
 </ClickEventLogging>
 ```
@@ -176,10 +175,10 @@ export type EventProperty = {
 ```tsx
 {isVisible && (
   <ViewEventLogging
-    path={['인사이트', '메인', '콘텐츠_리스트', '콘텐츠']}
+    path={['인사이트', '메인', '리스트_콘텐츠', '콘텐츠']}
     property={{ contentsId: 'abc' }}
   >
-    <div>{`인사이트 > 메인 > 콘텐츠_리스트 > 콘텐츠`}</div>
+    <div>{`인사이트 > 메인 > 리스트_콘텐츠 > 콘텐츠`}</div>
   </ViewEventLogging>
 )}
 ```

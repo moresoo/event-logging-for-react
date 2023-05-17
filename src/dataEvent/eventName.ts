@@ -1,7 +1,7 @@
 export const EVENT_NAME = {
   "인사이트": {
     "메인": {
-      "인기_콘텐츠_리스트": {
+      "인기_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
@@ -12,7 +12,7 @@ export const EVENT_NAME = {
           "click": "click__insight__category"
         }
       },
-      "콘텐츠_리스트": {
+      "리스트_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
@@ -25,13 +25,13 @@ export const EVENT_NAME = {
           "click": "click__insight__share"
         }
       },
-      "추천_콘텐츠_리스트": {
+      "추천_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
         }
       },
-      "관련_콘텐츠_리스트": {
+      "관련_콘텐츠": {
         "콘텐츠": {
           "click": "click__insight__contents",
           "view": "view__insight__contents"
