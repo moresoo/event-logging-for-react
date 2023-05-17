@@ -17,9 +17,9 @@ const ViewEventLogging = <Path extends AllEventPath>({
   path,
   property,
 }: EventLoggingComponentProps<Path, 'view'>) => {
-  const [feature, type, location, target] = path;
-  const eventName = (EVENT_NAME as any)[feature][type][location][target]['view'];
-  const eventPath = [feature, type, location, target].join(' > ');
+  const [feature, page, at, target] = path;
+  const eventName = (EVENT_NAME as any)[feature][page][at][target]['view'];
+  const eventPath = [feature, page, at, target].join(' > ');
 
   const ref = useRef<HTMLDivElement>(null);
   const isViewedRef = useRef(false);

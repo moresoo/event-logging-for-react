@@ -6,8 +6,8 @@ dotenv.config();
 
 type EventNameObject = {
   [feature: string]: {
-    [type: string]: {
-      [location: string]: {
+    [page: string]: {
+      [at: string]: {
         [target: string]: {
           [action: string]: string;
         };
@@ -18,8 +18,8 @@ type EventNameObject = {
 
 type EventPropertyObject = {
   [feature: string]: {
-    [type: string]: {
-      [location: string]: {
+    [page: string]: {
+      [at: string]: {
         [target: string]: {
           [action: string]: Record<string, string>;
         };
@@ -63,15 +63,15 @@ export type { EventProperty } from './eventProperty';`;
 const convertArrayToEventNameObject = (arr: string[][]): EventNameObject => {
   const result: EventNameObject = {};
   arr
-    .filter(([feature, type, location, target, action, name]) =>
-      [feature, type, location, target, action, name].every(Boolean),
+    .filter(([feature, page, at, target, action, name]) =>
+      [feature, page, at, target, action, name].every(Boolean),
     )
-    .forEach(([feature, type, location, target, action, name]) => {
+    .forEach(([feature, page, at, target, action, name]) => {
       result[feature] = { ...result[feature] };
-      result[feature][type] = { ...result[feature][type] };
-      result[feature][type][location] = { ...result[feature][type][location] };
-      result[feature][type][location][target] = { ...result[feature][type][location][target] };
-      result[feature][type][location][target][action] = name;
+      result[feature][page] = { ...result[feature][page] };
+      result[feature][page][at] = { ...result[feature][page][at] };
+      result[feature][page][at][target] = { ...result[feature][page][at][target] };
+      result[feature][page][at][target][action] = name;
     });
   return result;
 };
@@ -80,16 +80,16 @@ const convertEventPropertyObject = (arr: string[][]): EventPropertyObject => {
   const result: EventPropertyObject = {};
 
   arr
-    .filter(([feature, type, location, target, action, event]) =>
-      [feature, type, location, target, action, event].every(Boolean),
+    .filter(([feature, page, at, target, action, event]) =>
+      [feature, page, at, target, action, event].every(Boolean),
     )
-    .forEach(([feature, type, location, target, action, event, ...rest]) => {
+    .forEach(([feature, page, at, target, action, event, ...rest]) => {
       result[feature] = { ...result[feature] };
-      result[feature][type] = { ...result[feature][type] };
-      result[feature][type][location] = { ...result[feature][type][location] };
-      result[feature][type][location][target] = { ...result[feature][type][location][target] };
-      result[feature][type][location][target][action] = {
-        ...result[feature][type][location][target][action],
+      result[feature][page] = { ...result[feature][page] };
+      result[feature][page][at] = { ...result[feature][page][at] };
+      result[feature][page][at][target] = { ...result[feature][page][at][target] };
+      result[feature][page][at][target][action] = {
+        ...result[feature][page][at][target][action],
       };
 
       rest.reduce((obj, value, i) => {
@@ -100,7 +100,7 @@ const convertEventPropertyObject = (arr: string[][]): EventPropertyObject => {
           obj[key] = val;
         }
         return obj;
-      }, result[feature][type][location][target][action]);
+      }, result[feature][page][at][target][action]);
     });
 
   return result;
@@ -125,7 +125,7 @@ const findClosetValue = (rows: GoogleSpreadsheetRow[], startIndex: number, key: 
   return value;
 };
 
-// sheet title, 구분 (Type), 위치 (Location), 대상 (Target) 이라면
+// sheet title, 페이지 (Page), 위치 (At), 대상 (Target) 이라면
 const isPossibleKorean = (idx: number) => idx < 4;
 const replaceSpaceToUnderscore = (str: string) => str.replaceAll(' ', '_');
 

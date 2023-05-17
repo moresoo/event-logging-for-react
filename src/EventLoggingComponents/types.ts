@@ -14,16 +14,16 @@ type EventAction = 'click' | 'view';
 
 type EventPropertyForPath<Path, Action extends EventAction> = Path extends [
   infer Feature,
-  infer Type,
-  infer Location,
+  infer Page,
+  infer At,
   infer Target,
 ]
   ? Feature extends keyof EventProperty
-    ? Type extends keyof EventProperty[Feature]
-      ? Location extends keyof EventProperty[Feature][Type]
-        ? Target extends keyof EventProperty[Feature][Type][Location]
-          ? Action extends keyof EventProperty[Feature][Type][Location][Target]
-            ? EventProperty[Feature][Type][Location][Target][Action]
+    ? Page extends keyof EventProperty[Feature]
+      ? At extends keyof EventProperty[Feature][Page]
+        ? Target extends keyof EventProperty[Feature][Page][At]
+          ? Action extends keyof EventProperty[Feature][Page][At][Target]
+            ? EventProperty[Feature][Page][At][Target][Action]
             : never
           : never
         : never
