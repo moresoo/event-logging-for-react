@@ -1,4 +1,7 @@
-## 0. Start
+해당 링크에서 프로젝트의 목적과 과정에 대한 내용을 볼 수 있습니다.
+> 프론트엔드 개발자의 이벤트 로깅 설계와 생산성 극대화: https://velog.io/@moreso/data-event-design-for-frontend
+
+## 1. Start
 
 ### 실행하기
 ```
@@ -23,7 +26,7 @@ GOOGLE_PRIVATE_KEY=/* GOOGLE_PRIVATE_KEY */
 yarn generate:dataEvent
 ```
 
-## 1. Google SpreadSheet 기반 데이터 이벤트 생성
+## 2. Google SpreadSheet 기반 데이터 이벤트 생성
 
 ### Input
 
@@ -153,7 +156,7 @@ export type EventProperty = {
 };
 ```
 
-## 2. 이벤트 로깅 컴포넌트 (React + Typescript)
+## 3. 이벤트 로깅 컴포넌트 (React + Typescript)
 
 ### (1) 클릭 이벤트 로깅 컴포넌트
 
