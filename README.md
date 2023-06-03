@@ -1,5 +1,4 @@
-해당 링크에서 프로젝트의 목적과 과정에 대한 내용을 볼 수 있습니다.
-> 프론트엔드 개발자의 이벤트 로깅 설계와 생산성 극대화: https://velog.io/@moreso/data-event-design-for-frontend
+> [Link](https://velog.io/@moreso/data-event-design-for-frontend) 에서 프로젝트의 목적과 과정에 대한 내용을 볼 수 있습니다.
 
 ## 1. Start
 
@@ -19,7 +18,7 @@ GOOGLE_SERVICE_ACCOUNT_EMAIL=/* GOOGLE_SERVICE_ACCOUNT_EMAIL */
 GOOGLE_PRIVATE_KEY=/* GOOGLE_PRIVATE_KEY */
 ```
 
-> 참고: https://github.com/theoephraim/node-google-spreadsheet
+> 참고: [node-google-spreadsheet GitHub](https://github.com/theoephraim/node-google-spreadsheet)
 
 적용 후 
 ```
@@ -30,9 +29,9 @@ yarn generate:dataEvent
 
 ### Input
 
-<img width="1638" alt="스크린샷 2023-05-18 오전 3 00 10" src="https://github.com/moresoo/event-logging-for-react/assets/45632773/cc980213-b699-482d-8088-216bd3ef94ae">
+> [Google Spread Sheets 링크](https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg)
 
-> https://docs.google.com/spreadsheets/d/1H8kjFsnpSP6nrnWzUkvszCI7DsanTamgoGg0_dm4BHg
+<img width="1638" alt="스크린샷 2023-05-18 오전 3 00 10" src="https://github.com/moresoo/event-logging-for-react/assets/45632773/cc980213-b699-482d-8088-216bd3ef94ae">
 
 ### Output
 
